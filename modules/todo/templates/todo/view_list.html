@@ -1,0 +1,161 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Категорія задач -  {{ list.name }}{% endblock %}
+
+{% block content %}
+    <script type="text/javascript">
+        function order_tasks(data) {
+            // The JQuery plugin tableDnD provides a serialize() function which provides the re-ordered
+            // data in a list. We pass that list as an object called "data" to a Django view
+            // to save the re-ordered data into the database.
+
+            $.post("{% url 'todo-reorder_tasks' %}", data, "json");
+            return false;
+        };
+
+        $(document).ready(function() {
+            // Initialise the task table for drag/drop re-ordering
+            $("#tasktable").tableDnD();
+
+            $('#tasktable').tableDnD({
+                onDrop: function(table, row) {
+                    order_tasks($.tableDnD.serialize());
+                }
+            });
+
+            // Initially hide the Add Task form
+{#            $('#AddTask').hide();#}
+
+            // toggle slide to show the Add Task form when link clicked
+            $('#slideToggle').click(function(){
+                $(this).siblings('#AddTask').slideToggle();
+            });
+        });
+    </script>
+
+    {% if list_slug == "mine" %}
+        <h1>Задачі назначені на {{ request.user }}</h1>
+    {% elif auth_ok %}
+       <h1>Задачі "{{ list.name }}" провалені по строкам</h1>
+       <p>Ця категорія належить групі {{ list.group }}</p>
+    {% endif %}
+
+    {% if auth_ok %}
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            {% if not view_completed %}
+
+            	<h3>Не завершені задачі (аби змінити черговість задачі просто пересуньте її нагору)</h3>
+
+            	<div class="content table-responsive table-full-width">
+                   <table id="tasktable" class="table table-striped">
+                      <thead>
+                          <th>Виконано</th>
+                          <th>Задача</th>
+                          <th>Створена</th>
+                          <th>Виконати до</th>
+                          <th>Автор</th>
+                          <th>Виконавець</th>
+                          <th>Опис задачі</th>
+                          <th>Коментар</th>
+                          {% if list_slug == "mine" %}
+                              <th>Категорія</th>
+                          {% endif %}
+                          <th>Видалити</th>
+                      </thead>
+
+                      <tbody>
+                      {% for task in task_list %}
+            	        <tr id="{{ task.id }}">
+            	            <td><input type="checkbox" name="mark_done" value="{{ task.id }}" id="mark_done_{{ task.id }}">   </td>
+            	            <td><a href="{% url 'todo-task_detail' task.id %}">{{ task.title|truncatewords:20 }}</a></td>
+            	            <td>{{ task.created_date|date:"m/d/Y" }}</td>
+            	            <td>
+            	            {% if task.overdue_status %}<span class="overdue">{% endif %}
+            	                {{ task.due_date|date:"m/d/Y" }}
+            	            {% if task.overdue_status %}</span>{% endif %}
+            	            </td>
+            	            <td>{{ task.created_by }}</td>
+            	            <td>{% if task.assigned_to %}{{ task.assigned_to }}{% else %}Без відповідального{% endif %}</td>
+            	            <td style="text-align:center;">{% if task.note %}&asymp;{% endif %} </td>
+            	            <td style="text-align:center;">{% if task.comment_set.all.count != 0 %}{{ task.comment_set.all.count }}{% endif %}</td>
+            	            {% if list_slug == "mine" %}
+                                <td><a href="{% url 'todo-incomplete_tasks' task.list.id task.list.slug %}">{{ task.list }}</a></td>
+                            {% endif %}
+            	            <td><input type="checkbox" name="del_tasks" value="{{ task.id }}" id="del_task_{{ task.id }}">   </td>
+                        </tr>
+            	      {% endfor %}
+                      </tbody>
+                   </table>
+                </div>
+                <p><input type="submit" name="mark_tasks_done" value="Відправити"  class="btn btn-info btn-fill btn-icon btn-sm"></p>
+                <a class="todo" href="{% url 'todo-completed_tasks' list_id list_slug %}">
+                    <div class="btn btn-wd btn-default btn-fill btn-move-right">
+                        Переглянути завершені задачі
+                        <span class="btn-label">
+                            <i class="ti-angle-double-right" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </a>
+
+            {% else %}
+
+            	<h3>Завершені задачі</h3>
+
+                <div class="content table-responsive table-full-width">
+                   <table id="tasktable" class="table table-striped">
+                      <thead>
+                        <th>Не виконано?</th>
+                        <th>Задача</th>
+                        <th>Створено</th>
+                        <th>Завершена</th>
+                        <th>Опис</th>
+                        <th>Коментар</th>
+                        {% if list_slug == "mine" %}
+                            <th>Категорія</th>
+                        {% endif %}
+                        <th>Видалити</th>
+                      </thead>
+
+                      <tbody>
+                      {% for task in completed_list %}
+            	        <tr>
+            	            <td><input type="checkbox" name="undo_completed_task" value="{{ task.id }}" id="id_undo_completed_task{{ task.id }}">   </td>
+            	            <td><a href="{% url 'todo-task_detail' task.id %}">{{ task.title|truncatewords:20 }}</a></td>
+            	            <td>{{ task.created_date|date:"m/d/Y" }}</td>
+            	            <td>{{ task.completed_date|date:"m/d/Y" }}</td>
+            	            <td style="text-align:center;">{% if task.note %}&asymp;{% endif %} </td>
+            	            <td style="text-align:center;">{% if task.comment_set.all.count != 0 %}{{ task.comment_set.all.count }}{% endif %}
+                            {% if list_slug == "mine" %}
+                                <td><a href="{% url 'todo-completed_tasks' task.list.id task.list.slug %}">{{ task.list }}</a></td>
+                            {% endif %}
+            	            <td><input type="checkbox" name="del_tasks" value="{{ task.id }}" id="del_task_{{ task.id }}">   </td>
+                        </tr>
+            	      {% endfor %}
+                      </tbody>
+                   </table>
+                </div>
+            	<input type="submit" name="deldonetasks" value="Відправити"  class="btn btn-info btn-fill btn-icon btn-sm">
+            	</form>
+                <a class="todo" href="{% url 'todo-incomplete_tasks' list_id list_slug %}">
+                    <div class="btn btn-wd btn-default btn-fill btn-move-right">
+                        Переглянути не заверешні таски
+                        <span class="btn-label">
+                            <i class="ti-angle-double-right" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </a>
+            {% endif %}
+
+    	{% if user.is_staff %}
+        	{% if list_slug != "mine" %}
+               <a href="{% url 'todo-del_list' list.id list_slug %}">
+                   <div class="btn btn-danger btn-fill btn-icon btn-sm">
+                     Видалити цю категорію
+                   </div>
+               </a>
+        	{% endif %}
+    	{% endif %}
+
+    {% endif %}
+{% endblock %}

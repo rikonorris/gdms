@@ -1,0 +1,32 @@
+{% extends "todo/base.html" %}
+
+{% block title %}{{ list_title }} задач{% endblock %}
+
+{% block content %}
+
+    {% if user.is_staff %}
+        <h1>Додати категорію задач:{{ list.name }} ?</h1>
+
+        <p>Ефективність:</p>
+
+         <ul>
+            <li>Не виконаних задач: {{ item_count_undone }} </li>
+            <li>Виконаних: {{ item_count_done }} </li>
+            <li><strong>Всього задач: {{ item_count_total }}</strong> </li>
+         </ul>
+
+        <p> ... все це буде <strong>видалено</strong>. Точно видалити?</p>
+
+        <form action="" method="post" accept-charset="utf-8">
+		    {% csrf_token %}
+            <input type="hidden" name="list" value="{{ list.id }}" id="some_name">
+            <p><input type="submit" name="delete-confirm" value="Do it! &rarr;" class="btn btn-fill btn-info"> </p>
+        </form>
+
+        <a href="{% url 'todo-incomplete_tasks' list.id list_slug %}">Повернутись до категорії: {{ list.name }}</a>
+
+    {% else %}
+        <p>Ви немаєте прав на цю категорію. Попросіть у адміністрації надати Вам права.</p>
+    {% endif %}
+
+{% endblock %}

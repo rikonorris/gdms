@@ -1,0 +1,16 @@
+Додано новий коментар до вашої задачі
+
+Задача: {{ task.title }}
+Коментар залишив(-ла): {{ user.first_name }} {{ user.last_name }}
+
+Коментар:
+{% autoescape off %}
+{{ body }}
+{% endautoescape %}
+
+Перейти на задачу:
+https://{{ site }}{% url 'todo-task_detail' task.id %}
+
+Категория задачи - {{ task.list.name }}:
+https://{{ site }}{% url 'todo-incomplete_tasks' task.list.id task.list.slug %}
+

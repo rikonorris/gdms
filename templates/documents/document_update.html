@@ -1,0 +1,87 @@
+{% extends 'documents/document_base.html' %}
+{% load static %}
+
+{% block document_content %}
+    <script src="{% static 'formset/jquery.formset.js' %}"></script>
+    <script type="text/javascript">
+        {#    order important#}
+        $(function () {
+            $('.subscriber_form').formset({
+                prefix: "{{ subscriber_formset.prefix }}"
+            });
+        });
+
+        $(function () {
+            $('.executor_form').formset({
+                prefix: "{{ executor_formset.prefix }}"
+            });
+        });
+
+        $(function () {
+            $('.attachment_form').formset({
+                prefix: "{{ attachment_formset.prefix }}"
+            });
+        });
+    </script>
+    {{ block.super }}
+    <h1>Document update template</h1>
+    <form method="post" id="document-form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-12">
+            {{ form }}
+        </div>
+
+        <div class="col-md-6">
+            <h3>Виконавці</h3>
+            {% for form in executor_formset.forms %}
+                <div class="executor_form">
+                    {{ form }}
+                </div>
+            {% endfor %}
+            <h3>До ознайомлення</h3>
+            {% for form in subscriber_formset.forms %}
+                <div class="subscriber_form">
+                    {{ form }}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            <h3>Файли</h3>
+            {% for form in attachment_formset.forms %}
+                <div class="attachment_form">
+                    {{ form }}
+                </div>
+            {% endfor %}
+        </div>
+        {{ activation.management_form }}
+        {{ attachment_formset.management_form }}
+        {{ executor_formset.management_form }}
+        {{ subscriber_formset.management_form }}
+    </form>
+    <div class="col-md-12">
+        <div id="save-form" class="btn btn-fill btn-info">
+            Зберегти зміни і продовжити редагування
+        </div>
+        <div id="save-form-and-next-stage" class="btn btn-fill btn-success">
+            Зберегти зміни і перйти на наступний етап
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var documentForm = $("#document-form");
+            var hiddenCheckbox = $('#id_go_to_next_stage');
+
+            hiddenCheckbox.hide();
+
+            $('#save-form').click(function () {
+                hiddenCheckbox.prop('checked', false);
+                documentForm.submit();
+            });
+            $('#save-form-and-next-stage').click(function () {
+                hiddenCheckbox.prop('checked', true);
+                documentForm.submit();
+            });
+        });
+    </script>
+
+{% endblock document_content %}

@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<ul class="pagination" style="width: 600px">
+
+
+  {% if page_obj.has_previous %}
+        <li class="paginate_button previous" id="example1_previous"><a href="?{{ page_obj.previous_page_number.querystring }}" aria-controls="example1" data-dt-idx="0" tabindex="0"><i class="fa fa-toggle-left "></i> Попередня сторінка</a></li>
+    {% else %}
+       <li class="paginate_button previous disabled" id="example1_previous"><a href="#" aria-controls="example1" data-dt-idx="0" tabindex="0"><i class="fa fa-toggle-left "></i> Попередня</a></li>
+    {% endif %}
+
+
+    {% for page in page_obj.pages %}
+        {% if page %}
+            {% if page == page_obj.number%}
+                  <li class="paginate_button active"> <span class="current page">{{ page }}</span></li>
+            {% else %}
+                <li class="paginate_button"><a href="?{{ page.querystring }}" class="page">{{ page }}</a></li>
+            {% endif %}
+        {% else %}
+             <li class="paginate_button"><a href="#" class="page">...</a></li>
+        {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+        <li class="paginate_button next" style="position: absolute; width: 150px "> <a href="?{{ page_obj.next_page_number.querystring }}" class="next"> Наступна сторінка <i class="fa fa-toggle-right"></i> </a></li>
+    {% else %}
+        <li class="paginate_button next disabled" style="position: absolute; width: 150px "><a href="#">Наступна <i class="fa fa-toggle-right"></i> </a></li>
+    {% endif %}
+</ul>
+

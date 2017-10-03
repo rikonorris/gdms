@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load highlight %}
+{% load static %}
+
+{% block title %}
+    Пошук.
+{% endblock %}
+
+{% block content %}
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet"/>
+
+{#    <h3>Пошук</h3>#}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Результати пошуку</h4>
+                <p class="category">За запитом : "{{ query }}"</p>
+            </div>
+            <div class="content">
+                {% if query and page.object_list %}
+                   <div class="content table-responsive table-full-width">
+                       <table id="table" class="table table-striped">
+                          <thead>
+                            <th>Номер</th>
+                            <th>Тип</th>
+                            <th>Назва</th>
+                            <th>Статус</th>
+                            <th>Дата створення</th>
+                          </thead>
+                          <tbody>
+                            {% for result in page.object_list %}
+                            <tr>
+                              <td>
+                                  <a href="{% url 'documents:instruction_info' result.pk %}">
+                                      {% highlight result.order_num with query css_class "highlight" %}</a>
+                              </td>
+                              <td> {% highlight result.type with query css_class "highlight" %}</td>
+                              <td> {% highlight result.title with query css_class "highlight" %}</td>
+                              <td> {% highlight result.status with query css_class "highlight" %}</td>
+                              <td>
+                                {% highlight result.date_created with query css_class "highlight" %}
+                              </td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                   </div>
+                {% else %}
+                    <h4 class="title"> За даним запитом нічого не знайдено</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if page.has_previous or page.has_next %}
+    <div class="card-content">
+        {% if page.has_previous %} <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}" style="color: white">{% endif %}
+            <button type="button" class="btn btn-wd btn-default btn-fill btn-move-left {% if not page.has_previous %}active{% endif %}">
+                <span class="btn-label">
+                    <i class="ti-angle-left"></i>
+                </span>
+                Минулa
+            </button>
+        {% if page.has_previous %}</a>{% endif %}
+        |
+        {% if page.has_next %} <a href="?q={{ query }}&amp;page={{ page.next_page_number }}" style="color: white">{% endif %}
+            <button type="button" class="btn btn-wd btn-default btn-fill btn-move-right {% if not page.has_next %}active{% endif %}">
+                Наступна
+                <span class="btn-label">
+                    <i class="ti-angle-right"></i>
+                </span>
+            </button>
+        {% if page.has_next %}</a>{% endif %}
+    </div>
+{% endif %}
+
+{% endblock %}

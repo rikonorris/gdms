@@ -1,0 +1,26 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Пошук задач{% endblock %}
+
+{% block content_title %}
+    <h2 class="page_title">Пошук</h2>
+{% endblock %}
+
+{% block content %}
+    {% if found_items %}
+        <h2>Знайдено {{found_items.count}} задач по пошуковому запиту: "{{ query_string }}"</h2>
+        <div class="post_list">
+            {% for f in found_items %}
+                <p><strong><a href="{% url 'todo-task_detail' f.id %}">{{ f.title }}</a></strong><br />
+                    <span class="minor">
+                        Катагорія: <a href="{% url 'todo-incomplete_tasks' f.list.id f.list.slug %}">{{ f.list.name }}</a><br />
+                        Виконавець: {% if f.assigned_to %}{{ f.assigned_to }}{% else %}Не визначено{% endif %} (Створено: {{ f.created_by }})<br />
+                        Виконана: {{ f.completed|yesno:"Так,Ні" }}
+                    </span>
+                </p>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h2> Нічого не знайшли. Спробуйте змінити текст пошуку на коротчший</h2>
+    {% endif %}
+{% endblock %}

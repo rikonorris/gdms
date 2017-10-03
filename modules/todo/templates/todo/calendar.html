@@ -1,0 +1,31 @@
+{% extends "todo/base.html" %}
+{% load static %}
+
+{% block title %}Задачник. {% endblock %}
+{% block cardtitle %}Календар{% endblock %}
+{#   {% block cardtitle_description %}Категорії задач по групам доступу. Наразі {{ item_count }} задач в {{ list_count }} категоріях{% endblock %}#}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="monthly" id="calendar">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="{% static 'calendar/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'calendar/js/monthly.js' %}"></script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#calendar').monthly({
+                mode: 'event',
+                dataType: 'json',
+                jsonUrl: '{% static 'calendar/js/events.json' %}',
+            });
+        });
+    </script>
+{% endblock %}

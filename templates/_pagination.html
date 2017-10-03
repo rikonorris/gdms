@@ -1,0 +1,30 @@
+{% load i18n %}
+<div class="card-content">
+    {% if page_obj.paginator.num_pages > 1 %}
+        <a type="button" {% if page_obj.has_previous %}href="?{{ page_obj.previous_page_number.querystring }}"{% endif %}
+           class="btn btn-default btn-move-left {% if not page_obj.has_previous %}active{% endif %}">
+            <span class="btn-label">
+                <i class="ti-angle-left"></i>
+            </span>
+            Попередня
+        </a>
+            {% for page in page_obj.pages %}
+                {% if page %}
+                    {% ifequal page page_obj.number %}
+                        <a class="btn btn-default active">{{ page }}</a>
+                    {% else %}
+                        <a href="?{{ page.querystring }}" class="btn btn-default">{{ page }}</a>
+                    {% endifequal %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+        <a type="button" {% if page_obj.has_next %}href="?{{ page_obj.next_page_number.querystring }}"{% endif %}
+           class="btn btn-default btn-move-right {% if not page_obj.has_next %}active{% endif %}">
+            Наступна
+            <span class="btn-label">
+                <i class="ti-angle-right"></i>
+            </span>
+        </a>
+    {% endif %}
+</div>

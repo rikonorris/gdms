@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Мої чернетки.{% endblock %}
+
+{% block content %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Мої чернетки</h4>
+                                <p class="category">Документи які були вами створені але не запущені в роботу. Доступні лише вам.</p>
+                            </div>
+                            <div class="content">
+                               <div class="content table-responsive table-full-width">
+                                   <table id="table" class="table table-striped">
+                                      <thead>
+                                        <th>Номер</th>
+                                        <th>Тип</th>
+                                        <th>Назва</th>
+                                        <th>Дата створення</th>
+                                      </thead>
+                                      <tbody>
+                                        {% for document in object_list %}
+                                        <tr>
+                                          <td>
+{#                                              <a href="{% url 'documents:doc_base_flow:detail' document.documentbaseprocess_set.first.id %}">#}
+                                                  {{ document.registration_number }}
+{#                                              </a>#}
+                                          </td>
+                                          <td>{{ document.title }}</td>
+                                          <td>{{ document.description }}</td>
+                                          <td>{{ document.date_created }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                               {% include '_pagination.html' %}
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock content%}

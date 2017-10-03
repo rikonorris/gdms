@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Мої документи.{% endblock %}
+
+{% block content %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Мої документи</h4>
+                                <p class="category">Документи які створили ви</p>
+                            </div>
+                            <div class="content">
+                               <div class="content table-responsive table-full-width">
+                                   <table id="table" class="table table-striped">
+                                      <thead>
+                                        <th>Номер</th>
+                                        <th>Тип</th>
+                                        <th>Назва</th>
+                                        <th>Статус</th>
+                                        <th>Дата створення</th>
+                                      </thead>
+                                      <tbody>
+                                        {% for document in object_list %}
+                                        <tr>
+                                          <td>
+                                              <a href="{% url 'documents:instruction_info' document.id %}">{{ document.order_num }}</a>
+                                          </td>
+                                          <td>{{ document.type }}</td>
+                                          <td>{{ document.title }}</td>
+                                          <td>{{ document.status }}</td>
+                                          <td>
+                                           {{ document.date_created }}
+                                          </td>
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+                                {% include '_pagination.html' %}
+                               </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+{% endblock content%}

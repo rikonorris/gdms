@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-2">
+            <a href="{% url 'documents:mayor_ordinance:start' %}">
+                <div class="document">
+                    <div class="document-icon">
+                        <i class="ti-file" aria-hidden="true"></i>
+                    </div>
+                    <span>Розпорядження міського голови</span>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a href="{% url 'documents:mayor_instruction:start' %}">
+                <div class="document">
+                    <div class="document-icon">
+                        <i class="ti-file" aria-hidden="true"></i>
+                    </div>
+                    <span>Доручення міського голови</span>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endblock %}

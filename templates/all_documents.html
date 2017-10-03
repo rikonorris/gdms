@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block title %}Мої документи.{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Доступні документи</h4>
+                    <p class="category">Документи, які створені вами та за які ви відповідальні</p>
+                </div>
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="col-md-3">
+                            <h5 class="title">Фільтр за датою:</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-3">
+                                <label for="datepicker_from">З</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="datepicker_from" class="form-control input-no-border fo">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-3">
+                                <label for="datepicker_to">по</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input type="text" id="datepicker_to" class="form-control input-no-border fo">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" class="btn btn-default btn-fill" id="filter">Фільтрувати</button>
+                        </div>
+                    </div>
+                    <div class="content table-responsive table-full-width">
+                        <table id="table" class="table table-striped">
+                            <thead>
+                            <th>Номер</th>
+                            <th>Тип</th>
+                            <th>Назва</th>
+                            <th>Статус</th>
+                            <th>Дата створення</th>
+                            </thead>
+                            <tbody>
+                            {% for document in object_list %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'documents:officememo:detail' document.officememo_set.first.officememoprocess_set.first.id %}">
+                                            {{ document.order_num }}
+                                        </a>
+                                    </td>
+                                    <td>{{ document.type }}</td>
+                                    <td>{{ document.title }}</td>
+                                    <td>{{ document.status }}</td>
+                                    <td>
+                                        {{ document.date_created }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% include '_pagination.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('#datepicker_from').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+            $('#datepicker_to').datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
+        });
+        $('#filter').click(function () {
+            var from = $('#datepicker_from').val();
+            var to = $('#datepicker_to').val();
+            var page = '{{ page_obj.number }}';
+            window.location.href = "http://127.0.0.1:8000/all-documents/?page=" + page + "&from=" + from + "&to=" + to;
+        })
+    </script>
+
+{% endblock content %}

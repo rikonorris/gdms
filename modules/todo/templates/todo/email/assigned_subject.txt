@@ -1,0 +1,1 @@
+ДокФлоу. Вам прилетіла нова задача - {% autoescape off %}{{ task.title }}{% endautoescape %}

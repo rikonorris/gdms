@@ -1,0 +1,57 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Задачник. {% endblock %}
+   {% block cardtitle %}Задачі для персоналу{% endblock %}
+    {% block cardtitle_description %}Категорії задач по групам доступу. Наразі {{ item_count }} задач в {{ list_count }} категоріях{% endblock %}
+
+{% block content %}
+    <a href="{% url 'todo-mine' %}">
+        <h3>Cписок моїх завдань</h3>
+    </a>
+
+   	{% regroup list_list by group as section_list %}
+
+    {% for group in section_list %}
+        <h4>{{ group.grouper }}</h4>
+            <div class="row">
+            {% for item in group.list %}
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-content">
+                        <a class="todo" href="{% url 'todo-incomplete_tasks' item.id item.slug %}">{{ item.name }} </a>
+                        <div class="pull-right">
+                            <span class="label label-success">
+                                {{ item.item_set.count }}
+                            </span>
+                            <span class="label label-warning">
+                                {{ item.incomplete_tasks.count }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <hr>
+                        <div class="footer-title">
+                            <div class="pull-right">
+                                <a href="{% url 'todo-incomplete_tasks' item.id item.slug %}">
+                                    <div class="btn btn-info btn-fill btn-icon btn-sm">
+                                        <i class="ti-agenda"></i> Список задач
+                                    </div>
+                                </a>
+                                <a href="{% url 'todo-add_task' item.id %}">
+                                    <div class="btn btn-info btn-fill btn-icon btn-sm">
+                                        <i class="ti-plus"></i> Додати нову задачу
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endfor %}
+    <a href="{% url 'todo-add_list' %}">
+        <div class="btn btn-info btn-fill btn-icon btn-sm">Додати категорію</div>
+    </a>
+</div>
+
+{% endblock %}

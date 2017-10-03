@@ -1,0 +1,21 @@
+{% extends "todo/base.html" %}
+
+{% block page_heading %}{% endblock %}
+{% block title %}Створити нову категорію. {% endblock %}
+   {% block cardtitle %}Створення нової категорії задач{% endblock %}
+    {% block cardtitle_description %}Категорії створюються для окремих проектів або робочих груп{% endblock %}
+
+{% block content %}
+
+
+	<form action="" method="post">
+		{% csrf_token %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Назва групи: </label>{{ form.name }}
+            <label class="col-sm-2 control-label">Група доступу: </label>{{ form.group }}
+        </div>
+	<p><input type="submit" value="Додати" class="btn btn-default btn-fill btn-wd"></p>
+	</form>
+
+
+{% endblock %}

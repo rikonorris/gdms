@@ -1,0 +1,19 @@
+Вітаємо, {{ task.assigned_to.first_name }} !
+
+
+Вам було призначено нове завдання в категорії {{ task.list.name }}
+Призначив(-ла) - {{ task.created_by.first_name }} {{ task.created_by.last_name }}
+
+Задача - {{ task.title }}
+
+{% if task.note %}
+{% autoescape off %}
+Опис задачі: {{ task.note }}
+{% endautoescape %}
+{% endif %}
+
+Перейти на задачу:
+http://{{ site }}{% url 'todo-task_detail' task.id %}
+
+Категорія задачі {{ task.list.name }}:
+http://{{ site }}{% url 'todo-incomplete_tasks' task.list.id task.list.slug %}

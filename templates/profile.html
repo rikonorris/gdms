@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Мій профіль.{% endblock %}
+
+{% block content %}
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Мій профіль у системі:</h4>
+                            </div>
+                            <div class="content">
+
+                                <p>Мій системний ідентифікатор: {{ user.id }} </p>
+                                <p>Прізвище: {{ user.last_name }}</p>
+                                <p>Ім'я: {{ user.first_name }}</p>
+                                <p>По батькові: {{ user.middle_name }}</p>
+                                <p>Телефон: {{ user.phone }}</p>
+                                <p>Email: {{ user.email }}</p>
+                                <p id="notifications">Нотифікації:
+                                    {% if user.signed_on_notifications %}
+                                        Ви підписані
+                                        <a href="#" id="unsubscribe">(відписатися)</a>
+                                    {% else %}
+                                        Ви не підписані
+                                        <a href="#" id="subscribe">(підписатися)</a>
+                                    {% endif %}
+                                </p>
+
+                            </div>
+                    </div>
+                   </div>
+                </div>
+<script>
+$('body').on( "click", 'a#subscribe', function () {
+    $('p#notifications').html('Нотифікації: Ви підписані <a href="#" id="unsubscribe">(відписатися)</a>')
+    sendRequest(1)
+
+});
+$('body').on( "click", 'a#unsubscribe', function () {
+    $('p#notifications').html('Нотифікації: Ви не підписані <a href="#" id="subscribe">(підписатися)</a>')
+    sendRequest(0)
+});
+function sendRequest(value) {
+    $.ajax({
+        url: '{% url 'notifications_subscription' %}',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            "value": value
+        },
+        success: function (response) {
+        }
+    })
+}
+</script>
+
+{% endblock content%}

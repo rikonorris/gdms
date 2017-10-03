@@ -1,0 +1,47 @@
+{% extends "todo/base.html" %}
+
+{% block title %}Додати задачу( Категорія задач -  {{ list_object.name }}){% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-offset">
+                <form action="" method="post" novalidate>
+                {% csrf_token %}
+                <div class="card-header">
+                    <h4 style="margin-top: 0">Створити завдання</h4>
+                </div>
+
+                <div class="card-content">
+                    <div class="col-md-6">
+                        <div>{{ form.title.errors }}</div>
+                        <div>{{ form.due_date.errors }}</div>
+
+                        <div class="form-group col-md-12"><label for="id_title">Назва:</label> {{ form.title }}</div>
+                        <div class="form-group col-md-12"><label for="id_due_date">Виконати до:</label> {{ form.due_date }}</div>
+                        <div class="form-group col-md-12"><label for="id_assigned">Відповідальний:</label> {{ form.assigned_to }}</div>
+                        <div class="form-group col-md-12">
+                            <label for="id_notify">Повідомити на пошту:</label>
+                            <input type="checkbox" checked="checked" name="notify" value="1" id="notify">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group col-md-12"><label for="id_note">Завдання:</label>
+                            {{ form.note }}
+                           <p class="minor">*повідомлення на електропшту надсилаються у випадку якщо ви назначили відповідального окрім себе</p>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="priority" value="999" id="id_priority">
+                    <input type="hidden" name="created_by" value="{{ request.user.id }}" id="id_created_by">
+                    <input type="hidden" name="list" value="{{ list_object.id }}" id="id_list">
+                    <input type="hidden" name="created_date" value="{{ created_date }}" id="id_created_date">
+                    <input type="submit" name="add_task" value="Створити" class="btn btn-fill btn-info">
+
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

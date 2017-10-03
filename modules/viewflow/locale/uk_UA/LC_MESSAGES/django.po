@@ -1,0 +1,372 @@
+# distributed under the same license as Viewflow package.
+msgid ""
+msgstr ""
+"Project-Id-Version: viewflow\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-15 06:46+0000\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: activation.py:33
+msgctxt "STATUS"
+msgid "Assigned"
+msgstr "Назначено"
+
+#: activation.py:34
+msgctxt "STATUS"
+msgid "Canceled"
+msgstr "Відмінено"
+
+#: activation.py:35
+msgctxt "STATUS"
+msgid "Done"
+msgstr "Завершено"
+
+#: activation.py:36
+msgctxt "STATUS"
+msgid "Error"
+msgstr "Помилка"
+
+#: activation.py:37
+msgctxt "STATUS"
+msgid "New"
+msgstr "Новий документ"
+
+#: activation.py:38
+msgctxt "STATUS"
+msgid "Prepared"
+msgstr "Підготовлений"
+
+#: activation.py:39
+msgctxt "STATUS"
+msgid "Scheduled"
+msgstr "Запланований"
+
+#: activation.py:40
+msgctxt "STATUS"
+msgid "Started"
+msgstr "Запущений"
+
+#: activation.py:41
+msgctxt "STATUS"
+msgid "Unripe"
+msgstr ""
+
+#: flow/views/actions.py:114
+msgid "Undo"
+msgstr "Відкотити "
+
+#: flow/views/actions.py:123
+#, python-brace-format
+msgid "Task {task} has been undone."
+msgstr "Задачу {task} відмінено."
+
+#: flow/views/actions.py:130
+#: frontend/templates/viewflow/flow/process_cancel.html:17
+#: frontend/templates/viewflow/flow/process_detail.html:59
+msgid "Cancel"
+msgstr "Відмінити"
+
+#: flow/views/actions.py:139
+#, python-brace-format
+msgid "Task {task} has been canceled."
+msgstr "Задача {task} відмінена"
+
+#: flow/views/actions.py:146
+msgid "Perform"
+msgstr "Виконати"
+
+#: flow/views/actions.py:162
+msgid "Activate Next"
+msgstr "Активувати наступну задачу"
+
+#: flow/views/actions.py:252
+#, python-brace-format
+msgid "Process {process} can not be canceled."
+msgstr "{process} не може бути відмінено"
+
+#: flow/views/actions.py:257
+#, python-brace-format
+msgid "Process {process} has been canceled."
+msgstr "{process} відмінено"
+
+#: flow/views/start.py:64
+#, python-brace-format
+msgid "Process {process} has been started."
+msgstr "{process} запущено"
+
+#: flow/views/task.py:59
+#, python-brace-format
+msgid "Task {task} cannot be executed."
+msgstr "Задача {task} не може бути виконана"
+
+#: flow/views/task.py:77
+#, python-brace-format
+msgid "Task {task} has been completed."
+msgstr "Задачу {task} завершено"
+
+#: flow/views/task.py:79
+#, python-brace-format
+msgid "Process {process} has been completed."
+msgstr "Процесс {process} завершено"
+
+#: flow/views/task.py:173
+#, python-brace-format
+msgid "Task {task} has been assigned"
+msgstr "Задача {task} призначена"
+
+#: flow/views/task.py:187
+#, python-brace-format
+msgid "Task {task} cannot be assigned to you"
+msgstr "Задача {task} не може бути призначена вам"
+
+#: flow/views/task.py:212
+#, python-brace-format
+msgid "Task {task} has been unassigned."
+msgstr "Задача {task} більше не назначена вам"
+
+#: frontend/apps.py:18
+msgid "Workflow"
+msgstr "Задачі"
+
+#: frontend/templates/viewflow/flow/base_task.html:29
+#: frontend/templates/viewflow/flow/process_cancel.html:23
+#: frontend/templates/viewflow/flow/process_detail.html:19
+#: frontend/templates/viewflow/site_task_action.html:16
+msgid "Description"
+msgstr "Опис"
+
+#: frontend/templates/viewflow/flow/base_task.html:36
+#: frontend/templates/viewflow/flow/process_data.html:32
+#: frontend/templates/viewflow/flow/process_detail.html:20 models.py:156
+msgid "Owner"
+msgstr "Власник"
+
+#: frontend/templates/viewflow/flow/base_task.html:41 models.py:158
+msgid "Permission"
+msgstr "Права"
+
+#: frontend/templates/viewflow/flow/base_task.html:49 models.py:18 models.py:79
+msgid "Created"
+msgstr "Документ створено"
+
+#: frontend/templates/viewflow/flow/base_task.html:53
+#: frontend/templates/viewflow/flow/process_cancel.html:24
+#: frontend/templates/viewflow/flow/process_detail.html:21
+#: frontend/templates/viewflow/flow/queue.html:13 models.py:80
+msgid "Started"
+msgstr "Запущено"
+
+#: frontend/templates/viewflow/flow/base_task.html:57
+#: frontend/templates/viewflow/flow/process_detail.html:22
+#: frontend/templates/viewflow/flow/queue.html:14 models.py:19 models.py:81
+msgid "Finished"
+msgstr "Закінчено"
+
+#: frontend/templates/viewflow/flow/base_task.html:65
+msgid "Previous tasks"
+msgstr "Попередні задачі"
+
+#: frontend/templates/viewflow/flow/base_task.html:74
+msgid "Next tasks"
+msgstr "Наступні задачі"
+
+#: frontend/templates/viewflow/flow/process_cancel.html:21
+#: frontend/templates/viewflow/flow/process_detail.html:18
+#: frontend/templates/viewflow/flow/queue.html:11
+#: frontend/templates/viewflow/site_task_action.html:15 frontend/views.py:157
+#: frontend/views.py:203 frontend/views.py:248
+msgid "#"
+msgstr "№"
+
+#: frontend/templates/viewflow/flow/process_cancel.html:22
+#: frontend/templates/viewflow/flow/queue.html:12
+msgid "Name"
+msgstr "Ім'я"
+
+#: frontend/templates/viewflow/flow/process_cancel.html:25
+#: frontend/templates/viewflow/flow/process_detail.html:23
+#: frontend/templates/viewflow/flow/queue.html:16 models.py:16 models.py:77
+msgid "Status"
+msgstr "Статус"
+
+#: frontend/templates/viewflow/flow/process_cancel.html:47
+msgid "UNCANCELABLE"
+msgstr "Невідміняємий"
+
+#: frontend/templates/viewflow/flow/process_data.html:8
+msgid "edit"
+msgstr "правити"
+
+#: frontend/templates/viewflow/flow/process_data.html:14
+msgid "Yes"
+msgstr "Так"
+
+#: frontend/templates/viewflow/flow/process_data.html:15
+msgid "No"
+msgstr "Ні"
+
+#: frontend/templates/viewflow/flow/process_data.html:27
+msgid "Active tasks"
+msgstr "Активні задачі"
+
+#: frontend/templates/viewflow/flow/process_data.html:31 models.py:75
+#: models.py:163
+msgid "Task"
+msgstr "Задачі"
+
+#: frontend/templates/viewflow/flow/queue.html:7
+msgid "Queue"
+msgstr "Черга"
+
+#: frontend/templates/viewflow/flow/queue.html:15
+#: frontend/templates/viewflow/site_task_action.html:18 frontend/views.py:262
+#: models.py:145 models.py:152
+msgid "Process"
+msgstr "Процес"
+
+#: frontend/templates/viewflow/flow/start.html:23
+msgid "Start and continue on this process"
+msgstr "Запустити і продовжити роботу над задачою"
+
+#: frontend/templates/viewflow/flow/start.html:24
+msgid "Start"
+msgstr "Запустити"
+
+#: frontend/templates/viewflow/flow/task.html:32
+#: frontend/templates/viewflow/flow/task_action.html:12
+#: frontend/templates/viewflow/flow/task_assign.html:14
+#: frontend/templates/viewflow/flow/task_detail.html:6
+#: frontend/templates/viewflow/flow/task_unassign.html:13
+msgid "Detail"
+msgstr "Деталі задачі"
+
+#: frontend/templates/viewflow/flow/task.html:35
+msgid "Done and continue on this process"
+msgstr "Завершити задачу и продовжити работу з документом"
+
+#: frontend/templates/viewflow/flow/task.html:36
+msgid "Done"
+msgstr "Завершити задачу"
+
+#: frontend/templates/viewflow/flow/task_action.html:17
+#: frontend/templates/viewflow/flow/task_unassign.html:18
+#: frontend/templates/viewflow/site_task_action.html:6
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: frontend/templates/viewflow/flow/task_assign.html:5
+#: frontend/templates/viewflow/flow/task_assign.html:9
+#: frontend/templates/viewflow/flow/task_assign.html:20
+#: frontend/templates/viewflow/flow/task_detail.html:18
+msgid "Assign"
+msgstr "Назначити"
+
+#: frontend/templates/viewflow/flow/task_assign.html:19
+msgid "Assign and continue on this process"
+msgstr "Призначити і продовжити роботу"
+
+#: frontend/templates/viewflow/flow/task_detail.html:12
+msgid "Administration"
+msgstr "Адміністрування"
+
+#: frontend/templates/viewflow/flow/task_detail.html:23
+#: frontend/templates/viewflow/flow/task_unassign.html:5
+#: frontend/templates/viewflow/flow/task_unassign.html:8
+msgid "Unassign"
+msgstr "Відмінити призначення"
+
+#: frontend/templates/viewflow/flow/task_detail.html:28
+msgid "Execute"
+msgstr "Виконати"
+
+#: frontend/templates/viewflow/includes/breadcrumb_category.html:2
+#: frontend/templates/viewflow/menu.html:3
+#: frontend/templates/viewflow/site_tasks.html:6
+msgid "Inbox"
+msgstr "Вхідні"
+
+#: frontend/templates/viewflow/includes/breadcrumb_category.html:3
+#: frontend/templates/viewflow/menu.html:4
+#: frontend/templates/viewflow/site_queue.html:6
+msgid "Unassigned"
+msgstr "Черга"
+
+#: frontend/templates/viewflow/includes/breadcrumb_category.html:4
+#: frontend/templates/viewflow/menu.html:5
+#: frontend/templates/viewflow/site_archive.html:5
+msgid "Participated"
+msgstr "Вихідні"
+
+#: frontend/templates/viewflow/includes/flows_start_actions.html:13
+msgid "New process"
+msgstr "Новий процес"
+
+#: frontend/templates/viewflow/includes/task_management_menu.html:6
+msgid "No actions available"
+msgstr "Немає доступних дій"
+
+#: frontend/templates/viewflow/menu.html:9
+msgid "Processes"
+msgstr "Процеси"
+
+#: frontend/templates/viewflow/site_task_action.html:17
+msgid "Summary"
+msgstr "Зведена інформація"
+
+#: frontend/templates/viewflow/site_task_action.html:29
+msgid "No task selected"
+msgstr "Не вібрані задачі"
+
+#: frontend/views.py:165 frontend/views.py:211 frontend/views.py:256
+msgid "Task Description"
+msgstr "Опис задачі"
+
+#: frontend/views.py:169 frontend/views.py:215 frontend/views.py:268
+msgid "Process Summary"
+msgstr "Опис документу"
+
+#: frontend/views.py:175 frontend/views.py:221
+msgid "Process URL"
+msgstr "Адреса документу"
+
+#: frontend/views.py:316
+msgid "Active Tasks"
+msgstr "Активні задачі"
+
+#: models.py:15
+msgid "Flow"
+msgstr "Документ"
+
+#: models.py:76
+msgid "Type"
+msgstr "Тип"
+
+#: models.py:82
+msgid "Previous"
+msgstr "Попередній"
+
+#: models.py:83
+msgid "Token"
+msgstr "Токен"
+
+#: models.py:146
+msgid "Process list"
+msgstr "Список документів"
+
+#: models.py:157
+msgid "External Task ID"
+msgstr "Зовнішній ідентифікатор"
+
+#: models.py:160
+msgid "Comments"
+msgstr "Коментарі"
+
+#: models.py:164
+msgid "Tasks"
+msgstr "Задачі"

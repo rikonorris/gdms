@@ -1,0 +1,128 @@
+{% extends "todo/base.html" %}
+
+
+{% block title %}Задача: {{ task.title }}{% endblock %}
+
+{% block content %}
+    <script>
+        $(document).ready(function() {
+            console.log($('#id_priority'));
+            console.log('ready')
+            $('#id_priority').width(120).addClass('form-control')
+        });
+    </script>
+    <div class="row">
+        {% if auth_ok %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="col-md-12">
+                    <div class="card card-offset">
+                        <div class="card-content clearfix">
+                            <div class="col-md-6">
+                                <h3 style="margin-top: 0">{{ task }}</h3>
+                                <p>
+                                    <strong>В категорії:</strong> <a
+                                        href="{% url 'todo-incomplete_tasks' task.list.id task.list.slug %}"
+                                        class="showlink">{{ task.list }}</a><br/>
+                                    <strong>Виконавець:</strong>
+                                    {% if task.assigned_to %}{{ task.assigned_to.get_full_name }}{% else %}
+                                        Anyone{% endif %}<br/>
+                                    <strong>Створена:</strong> {{ task.created_by.first_name }} {{ task.created_by.last_name }}<br/>
+                                    <strong>Виконати до:</strong> {{ task.due_date }}<br/>
+                                    <strong>Завершена:</strong> {{ form.completed }}<br/>
+                                </p>
+                                {% if task.note %}
+                                    <div class="task_note">
+                                        <strong>Опис:</strong> {{ task.note|safe|urlize|linebreaks }}
+                                    </div>
+                                {% endif %}
+
+
+                                <div class="comment-content">
+                                    <div style="width: 80%">
+                                        <hr/>
+                                    </div>
+                                    <h3 style="margin: 0">Коментарі до задачі:</h3>
+                                    <ul class="commentList">
+                                        {% for comment in comment_list %}
+                                            <li>
+                                                <div class="card">
+                                                    <div class="card-content">
+                                                        <div class="commentText">
+                                                            <p>{{ comment.body|safe }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span class="date sub-text">
+                                                        <strong>{{ comment.author.first_name }} {{ comment.author.last_name }},
+                                                            {{ comment.date|date:"F d Y P" }}
+                                                        </strong>
+                                                    </span>
+                                                {% empty %}
+                                                <p>Поки що немає жодного коментаря</p>
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                    <div class="form-group">
+                                        <label>Ваш коментарій</label>
+                                        <textarea class="form-control my-text-area"
+                                                  name="comment-body"></textarea>
+                                        <input style="margin-top: 10px" class="btn btn-fill btn-info"
+                                               type="submit" value="Додати">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div>
+                                    <h3 style="margin-top: 0">Редагувати задачу</h3>
+
+                                    <div class="form-group">
+                                        <label>Назва</label>
+                                        {{ form.title }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Виконати до:</label>
+                                        {{ form.due_date }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Категорія:</label>
+                                        <div class="dropdown">
+                                            {{ form.list }}
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>Виконавець:</label>
+                                        <div class="dropdown">
+                                            {{ form.assigned_to }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Опис:</label>
+                                        {{ form.note }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Приорітет:</label>
+                                        {{ form.priority }}
+                                    </div>
+
+                                    <p>
+                                        <input type="submit" class="btn btn-fill btn-info" name="edit_task"
+                                               value="Редагувати задачу">
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}
